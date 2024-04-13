@@ -38,8 +38,7 @@ foreach (var request in processRequests)
 }
 
 // Export report to a file
-var filePath = "url_mappings_output.txt";
-dataExporter.ExportUrlMappings(filePath);
+dataExporter.ExportUrlMappings(tinyUrlDataFilePath);
 
 
 
