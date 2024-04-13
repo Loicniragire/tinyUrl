@@ -22,13 +22,13 @@ public class TinyUrlFunctionalService : ITinyUrlProvider
     {
         if (string.IsNullOrEmpty(shortUrl))
         {
-			// Assert that record does not exist
-			// If found, return the existing short url
-			var existingShortUrl = _tinyUrlDataProvider.GetShortUrl(longUrl);
-			if (!string.IsNullOrEmpty(existingShortUrl))
-			{
-				return existingShortUrl;
-			}
+            // Assert that record does not exist
+            // If found, return the existing short url
+            var existingShortUrl = _tinyUrlDataProvider.GetShortUrl(longUrl);
+            if (!string.IsNullOrEmpty(existingShortUrl))
+            {
+                return existingShortUrl;
+            }
 
             string hashValue = _hashProvider.ComputeHashValue(longUrl);
             if (length != null)

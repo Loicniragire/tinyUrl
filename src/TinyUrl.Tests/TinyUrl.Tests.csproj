@@ -20,5 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TinyUrl.FunctionalServices\TinyUrl.FunctionalServices.csproj" />
+    <ProjectReference Include="..\TinyUrl.DataServices\TinyUrl.DataServices.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+	  <Content Include="..\TinyUrl.Tests\TinyUrl_mapping_data.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
   </ItemGroup>
 </Project>

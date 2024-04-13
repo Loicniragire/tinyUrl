@@ -12,7 +12,7 @@
 
   <ItemGroup>
 	  <Content Include="..\TinyUrl.Console\InputCommands.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
   </ItemGroup>
 
