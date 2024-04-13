@@ -108,6 +108,9 @@ public class TinyUrlProviderTests
                    _loggerMock.Object);
         var longUrl = "https://www.google.com";
 
+		_tinyUrlDataProviderMock.Setup(x => x.GetShortUrl(It.IsAny<string>())).Returns("");
+        _hashProviderMock.Setup(x => x.ComputeHashValue("https://www.google.com")).Returns("12341234");
+
         // Act
         var actualShortUrl = tinyUrlProvider.CreateTinyUrl(longUrl);
 

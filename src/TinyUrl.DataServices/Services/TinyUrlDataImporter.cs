@@ -3,7 +3,7 @@ namespace TinyUrl.DataServices.Services;
 
 public class TinyUrlDataImporter : ITinyUrlDataImporter
 {
-	private ConcurrentDictionary<string, string> _tinyUrlMap = new ConcurrentDictionary<string, string>();
+    private ConcurrentDictionary<string, string> _tinyUrlMap = new ConcurrentDictionary<string, string>();
 
     public ConcurrentDictionary<string, string> TinyUrlMap => _tinyUrlMap;
 
@@ -25,16 +25,14 @@ public class TinyUrlDataImporter : ITinyUrlDataImporter
             // Split the line by space
             // The first part is the longUrl and the seconf part is the list of tinyUrls
             // Insert the longUrl and tinyUrl into the TinyUrlMap
-            var parts = line.Split(' ');
-            var longUrl = parts[0];
-            var tinyUrls = parts[1].Split(',');
-            // concatinate the tinyUrls with comma into a string
-            var tinyUrlsValue = string.Join(",", tinyUrls);
-            //
-            TinyUrlMap.TryAdd(longUrl, tinyUrlsValue);
-
-
+            if (!string.IsNullOrEmpty(line))
+            {
+                var parts = line.Split(' ');
+                var longUrl = parts[0];
+                var tinyUrls = parts[1].Split(',');
+                var tinyUrlsValue = string.Join(",", tinyUrls);
+                TinyUrlMap.TryAdd(longUrl, tinyUrlsValue);
+            }
         });
     }
 }
-

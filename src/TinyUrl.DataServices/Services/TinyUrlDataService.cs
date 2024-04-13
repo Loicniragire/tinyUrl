@@ -2,15 +2,26 @@ namespace TinyUrl.DataServices.Services;
 
 public class TinyUrlDataService : ITinyUrlDataProvider
 {
+	private readonly string _tinyUrlDataFilePath;
+	private readonly ITinyUrlDataImporter _tinyUrlDataImporter;
+
     // mapping of short URL to long URL
     // key: long URL
     // value: short URL
-    private ConcurrentDictionary<string, string> _urlMapping = new ConcurrentDictionary<string, string>();
+    private ConcurrentDictionary<string, string> _urlMapping;
 
     // create a dictionary to store the short URL and the access count
     // key: short URL
     // value: access count
     private ConcurrentDictionary<string, int> _longUrlAccessCount = new ConcurrentDictionary<string, int>();
+
+	public TinyUrlDataService(ITinyUrlDataImporter tinyUrlDataImporter, string tinyUrlDataFilePath)
+	{
+		_tinyUrlDataImporter = tinyUrlDataImporter;
+		_tinyUrlDataFilePath = tinyUrlDataFilePath;
+		_tinyUrlDataImporter.Import(_tinyUrlDataFilePath);
+		_urlMapping = _tinyUrlDataImporter.TinyUrlMap;
+	}
 
     public string GetLongUrl(string shortUrl)
     {

@@ -22,7 +22,16 @@ public class TinyUrlDataImporterTests
 
         // Assert
         // Assert that the importedData is not null
-        Assert.IsNotNull(importedData);
+        Assert.That(importedData, Is.Not.Null);
+
+        // Assert that importedData contains two records
+        Assert.That(importedData.Count, Is.EqualTo(2));
+
+        // Assert that the first record has the longUrl "https://www.google.com"
+        Assert.That(importedData.ContainsKey("http://www.google.com"), Is.True);
+
+        // Assert that the second record has the longUrl "http://www.nba.com"
+        Assert.That(importedData.ContainsKey("http://www.nba.com"), Is.True);
     }
 
     [Test]
