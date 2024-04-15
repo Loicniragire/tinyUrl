@@ -12,6 +12,7 @@ public class TinyUrlProviderTests
     {
         // clear the invocations before each test
         _tinyUrlDataProviderMock.Invocations.Clear();
+		_hashProviderMock.Invocations.Clear();
 
         _hashProviderMock.Setup(x => x.ComputeHashValue("https://www.google.com")).Returns("1234");
         _tinyUrlDataProviderMock.Setup(x => x.SaveUrlMapping("https://www.google.com", "1234"));
