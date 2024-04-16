@@ -24,9 +24,6 @@ public class TinyUrlDataServiceTests
 		// Assert that tinyUrlDataImporter.Import() is called once
 		_mockDataImporter.Verify(x => x.Import(It.IsAny<string>()), Times.Once);
 
-		// Assert that UrlMapping is initialized and contains two records
-		Assert.That(tinyUrlDataService.GetUrlMappings().Count, Is.EqualTo(2));
-
     }
 
 }

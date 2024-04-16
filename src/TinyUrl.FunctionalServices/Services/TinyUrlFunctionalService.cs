@@ -40,6 +40,7 @@ public class TinyUrlFunctionalService : ITinyUrlProvider
         }
 
         _tinyUrlDataProvider.SaveUrlMapping(longUrl, shortUrl);
+		_tinyUrlDataProvider.SaveChanges();
         return shortUrl;
     }
 
@@ -49,6 +50,7 @@ public class TinyUrlFunctionalService : ITinyUrlProvider
         var shortUrl = _tinyUrlDataProvider.GetShortUrl(longUrl);
         _logger.LogInformation("Short url found: {shortUrl}", shortUrl);
         _tinyUrlDataProvider.Delete(longUrl);
+		_tinyUrlDataProvider.SaveChanges();
         _logger.LogInformation("Short url deleted: {shortUrl}", shortUrl);
     }
 }

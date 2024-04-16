@@ -8,7 +8,7 @@ public interface ITinyUrlDataProvider
     void SaveUrlMapping(string longUrl, string shortUrl);
     void IncrementLongUrlAccessCount(string longUrl);
     int GetLongUrlAccessCount(string longUrl);
-    ConcurrentDictionary<string, string> GetUrlMappings();
+    void SaveChanges();
 }
 
 

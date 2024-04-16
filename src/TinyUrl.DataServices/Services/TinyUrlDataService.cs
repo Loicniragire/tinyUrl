@@ -2,8 +2,8 @@ namespace TinyUrl.DataServices.Services;
 
 public class TinyUrlDataService : ITinyUrlDataProvider
 {
-	private readonly string _tinyUrlDataFilePath;
-	private readonly ITinyUrlDataImporter _tinyUrlDataImporter;
+    private readonly string _tinyUrlDataFilePath;
+    private readonly ITinyUrlDataImporter _tinyUrlDataImporter;
 
     // mapping of short URL to long URL
     // key: long URL
@@ -15,13 +15,14 @@ public class TinyUrlDataService : ITinyUrlDataProvider
     // value: access count
     private ConcurrentDictionary<string, int> _longUrlAccessCount = new ConcurrentDictionary<string, int>();
 
-	public TinyUrlDataService(ITinyUrlDataImporter tinyUrlDataImporter, string tinyUrlDataFilePath)
-	{
-		_tinyUrlDataImporter = tinyUrlDataImporter;
-		_tinyUrlDataFilePath = tinyUrlDataFilePath;
-		_tinyUrlDataImporter.Import(_tinyUrlDataFilePath);
-		_urlMapping = _tinyUrlDataImporter.TinyUrlMap;
-	}
+    public TinyUrlDataService(ITinyUrlDataImporter tinyUrlDataImporter, string tinyUrlDataFilePath = "TinyUrlMappings.txt")
+    {
+        _tinyUrlDataImporter = tinyUrlDataImporter;
+        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, tinyUrlDataFilePath);
+		_tinyUrlDataFilePath = filePath;
+        _tinyUrlDataImporter.Import(filePath);
+        _urlMapping = _tinyUrlDataImporter.TinyUrlMap;
+    }
 
     public string GetLongUrl(string shortUrl)
     {
@@ -54,8 +55,9 @@ public class TinyUrlDataService : ITinyUrlDataProvider
         return _longUrlAccessCount[longUrl];
     }
 
-    public ConcurrentDictionary<string, string> GetUrlMappings()
+    public void SaveChanges()
     {
-        return _urlMapping;
+        var lines = _urlMapping.Select(kvp => $"{kvp.Key} {kvp.Value}");
+        File.WriteAllLines(_tinyUrlDataFilePath, lines);
     }
 }

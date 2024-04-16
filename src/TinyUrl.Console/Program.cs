@@ -8,7 +8,7 @@
 /// 5. Exporting the URL mappings to a file
 /// </summary>
 
-var tinyUrlDataFilePath = "url_mappings.txt";
+var tinyUrlDataFilePath = "TinyUrlMappings.txt";
 var tinyUrlDataImporter = new TinyUrlDataImporter();
 
 var tinyUrlDataProvider = new TinyUrlDataService(tinyUrlDataImporter, tinyUrlDataFilePath);
@@ -18,7 +18,6 @@ var tinyUrlFunctionalService = new TinyUrlFunctionalService(tinyUrlDataProvider,
 var tinyUrlStatsLogger = new Logger<TinyUrlStatsFunctionalService>(new LoggerFactory());
 var tinyUrlRetrieverLogger = new Logger<TinyUrlRetrieverFunctionalService>(new LoggerFactory());
 var tinyUrlStatsService = new TinyUrlStatsFunctionalService(tinyUrlDataProvider, tinyUrlStatsLogger);
-var dataExporter = new TinyUrlDataExporter(tinyUrlDataProvider);
 var tinyUrlRetrieverFunctionalService = new TinyUrlRetrieverFunctionalService(tinyUrlDataProvider, tinyUrlRetrieverLogger);
 
 var tinyUrlBase = "http://tinyurl.com/";
@@ -37,13 +36,6 @@ foreach (var request in processRequests)
     }
 }
 
-// Export report to a file
-dataExporter.ExportUrlMappings(tinyUrlDataFilePath);
-
-
-
-
-
 void CreateTinyUrl(ProcessRequest request)
 {
     // Generate a short URL
@@ -56,27 +48,3 @@ void CreateTinyUrl(ProcessRequest request)
         var shortUrl = tinyUrlFunctionalService.CreateTinyUrl(longUrl: request.LongUrl, shortUrl: request.ShortUrl);
     }
 }
-
-
-/*  */
-/* // Request input from user */
-/*  Console.WriteLine("Enter the long URL to shorten: "); */
-/*  var longUrl = Console.ReadLine(); */
-/*  */
-/*  */
-/*  Console.WriteLine($"Short URL: {tinyUrlBase}{shortUrl}"); */
-/*  */
-/*  // Retrieve the long URL */
-/*  var retrievedLongUrl = tinyUrlRetrieverFunctionalService.RetrieveLongUrl(shortUrl); */
-/*  Console.WriteLine($"Retrieved long URL: {retrievedLongUrl}"); */
-/*  */
-/*  // Get stats  */
-/*  var stats = tinyUrlStatsService.GetNumberOfTimesClicked(longUrl); */
-/*  Console.WriteLine($"Number of times clicked: {stats}"); */
-/*  */
-/*  */
-/*  // Export URL mappings to a file */
-
-
-
-

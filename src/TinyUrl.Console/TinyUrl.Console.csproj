@@ -12,13 +12,13 @@
 
   <ItemGroup>
 	  <Content Include="..\TinyUrl.Console\InputCommands.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
   </ItemGroup>
 
   <ItemGroup>
-	  <Content Include="..\TinyUrl.Console\url_mappings.txt">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  <Content Include="..\TinyUrl.Console\TinyUrlMappings.txt">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
   </ItemGroup>
 
