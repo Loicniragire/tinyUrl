@@ -143,6 +143,5 @@ public class TinyUrlProviderTests
         // Assert that DeleteShortUrl was called once
         _tinyUrlDataProviderMock.Verify(x => x.Delete(It.IsAny<string>()), Times.Once);
     }
-
 }
 
