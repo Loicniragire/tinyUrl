@@ -8,10 +8,9 @@
 /// 5. Exporting the URL mappings to a file
 /// </summary>
 
-var tinyUrlDataFilePath = "TinyUrlMappings.txt";
 var tinyUrlDataImporter = new TinyUrlDataImporter();
 
-var tinyUrlDataProvider = new TinyUrlDataService(tinyUrlDataImporter, tinyUrlDataFilePath);
+var tinyUrlDataProvider = new TinyUrlLinkedListDataService();
 var hashProvider = new HashingFunctionalService();
 var functionalServiceLogger = new Logger<TinyUrlFunctionalService>(new LoggerFactory());
 var tinyUrlFunctionalService = new TinyUrlFunctionalService(tinyUrlDataProvider, hashProvider, functionalServiceLogger);

@@ -29,10 +29,10 @@ public class TinyUrlDataService : ITinyUrlDataProvider
         return _urlMapping.FirstOrDefault(x => x.Value == shortUrl).Key;
     }
 
-    public string GetShortUrl(string longUrl)
-    {
-        return _urlMapping.TryGetValue(longUrl, out string shortUrl) ? shortUrl : null;
-    }
+	public List<string> GetShortUrl(string longUrl)
+	{
+		throw new NotImplementedException();
+	}
 
     public void SaveUrlMapping(string longUrl, string shortUrl)
     {
@@ -43,11 +43,6 @@ public class TinyUrlDataService : ITinyUrlDataProvider
     {
         // Remove the mapping of short URL to long URL from the dictionary
         _urlMapping.TryRemove(longUrl, out _);
-    }
-
-    public void IncrementLongUrlAccessCount(string longUrl)
-    {
-        _longUrlAccessCount.AddOrUpdate(longUrl, 1, (key, oldValue) => oldValue + 1);
     }
 
     public int GetLongUrlAccessCount(string longUrl)

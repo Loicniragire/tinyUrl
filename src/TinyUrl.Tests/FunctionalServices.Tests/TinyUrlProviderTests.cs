@@ -14,9 +14,10 @@ public class TinyUrlProviderTests
         _tinyUrlDataProviderMock.Invocations.Clear();
 		_hashProviderMock.Invocations.Clear();
 
+		var urs = new List<string>{ "tinyurl.com/1234"};
         _hashProviderMock.Setup(x => x.ComputeHashValue("https://www.google.com")).Returns("1234");
         _tinyUrlDataProviderMock.Setup(x => x.SaveUrlMapping("https://www.google.com", "1234"));
-        _tinyUrlDataProviderMock.Setup(x => x.GetShortUrl("https://www.google.com")).Returns("tinyurl.com/1234");
+        _tinyUrlDataProviderMock.Setup(x => x.GetShortUrl("https://www.google.com")).Returns(urs);
         _tinyUrlDataProviderMock.Setup(x => x.Delete("https://www.google.com"));
 
     }
@@ -78,8 +79,8 @@ public class TinyUrlProviderTests
         var longUrl = "https://www.google.com";
         // mock tinyDataProvider to return null the first time and a short url the second time
         _tinyUrlDataProviderMock.SetupSequence(x => x.GetShortUrl(It.IsAny<string>()))
-            .Returns("")
-            .Returns("tinyurl.com/12344");
+            .Returns(new List<string>())
+            .Returns(new List<string>{"tinyurl.com/12344"});
         _hashProviderMock.Setup(x => x.ComputeHashValue(It.IsAny<string>())).Returns("1234567890");
 
         var tinyUrlProvider = new TinyUrlFunctionalService(_tinyUrlDataProviderMock.Object,
@@ -109,7 +110,7 @@ public class TinyUrlProviderTests
                    _loggerMock.Object);
         var longUrl = "https://www.google.com";
 
-		_tinyUrlDataProviderMock.Setup(x => x.GetShortUrl(It.IsAny<string>())).Returns("");
+		_tinyUrlDataProviderMock.Setup(x => x.GetShortUrl(It.IsAny<string>())).Returns(new List<string>());
         _hashProviderMock.Setup(x => x.ComputeHashValue("https://www.google.com")).Returns("12341234");
 
         // Act

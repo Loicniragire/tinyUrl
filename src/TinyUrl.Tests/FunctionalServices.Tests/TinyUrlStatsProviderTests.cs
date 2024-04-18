@@ -12,7 +12,6 @@ public class TinyUrlStatsProviderTests
     {
         _tinyUrlDataProviderMock.Reset();
         _tinyUrlDataProviderMock.Setup(x => x.GetLongUrl("tinyurl.com/abc")).Returns("https://www.abc.com");
-        _tinyUrlDataProviderMock.Setup(x => x.IncrementLongUrlAccessCount("https://www.abc.com"));
         _tinyUrlDataProviderMock.Setup(x => x.GetLongUrlAccessCount("http://www.google.com")).Returns(1);
 
         _tinyUrlRetrieverMock.Setup(x => x.RetrieveLongUrl("tinyurl.com/abc")).Returns("https://www.google.com");

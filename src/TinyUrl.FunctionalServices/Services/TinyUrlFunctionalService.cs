@@ -24,10 +24,11 @@ public class TinyUrlFunctionalService : ITinyUrlProvider
         {
             // Assert that record does not exist
             // If found, return the existing short url
-            var existingShortUrl = _tinyUrlDataProvider.GetShortUrl(longUrl);
-            if (!string.IsNullOrEmpty(existingShortUrl))
+            var existingShortUrls = _tinyUrlDataProvider.GetShortUrl(longUrl);
+            if (existingShortUrls.Any())
             {
-                return existingShortUrl;
+				// TODO: 
+                return existingShortUrls.First();
             }
 
             string hashValue = _hashProvider.ComputeHashValue(longUrl);
@@ -36,6 +37,7 @@ public class TinyUrlFunctionalService : ITinyUrlProvider
                 hashValue = hashValue.Substring(0, length.Value);
             }
             _tinyUrlDataProvider.SaveUrlMapping(longUrl, hashValue);
+            _tinyUrlDataProvider.SaveChanges();
             return hashValue;
         }
 
@@ -54,5 +56,3 @@ public class TinyUrlFunctionalService : ITinyUrlProvider
         _logger.LogInformation("Short url deleted: {shortUrl}", shortUrl);
     }
 }
-
-

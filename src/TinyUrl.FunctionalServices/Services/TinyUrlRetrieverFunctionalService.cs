@@ -17,8 +17,6 @@ public class TinyUrlRetrieverFunctionalService : ITinyUrlRetriever
         var longUrl = _tinyUrlDataProvider.GetLongUrl(shortUrl);
         _logger.LogInformation("Long url retrieved: {longUrl}", longUrl);
 
-        // increment the number of times the longUrl has been accessed
-        _tinyUrlDataProvider.IncrementLongUrlAccessCount(longUrl);
         return longUrl;
     }
 }
