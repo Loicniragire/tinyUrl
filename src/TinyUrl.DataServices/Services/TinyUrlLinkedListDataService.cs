@@ -2,21 +2,21 @@ namespace TinyUrl.DataServices.Services;
 
 public class TinyUrlLinkedListDataService : ITinyUrlDataProvider
 {
-	private const string UrlHashTableFileName = "urlHashTable.json";
-	private readonly string _tinyUrlDataFilePath;
+    private const string UrlHashTableFileName = "urlHashTable.json";
+    private readonly string _tinyUrlDataFilePath;
     private readonly UrlHashTable _urlHashTable;
 
     public TinyUrlLinkedListDataService(int size)
     {
         _urlHashTable = new UrlHashTable(size);
-       _tinyUrlDataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UrlHashTableFileName);
+        _tinyUrlDataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UrlHashTableFileName);
     }
 
-	public TinyUrlLinkedListDataService()
-	{
-		_tinyUrlDataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UrlHashTableFileName);
-		_urlHashTable = new UrlHashTable(_tinyUrlDataFilePath);
-	}
+    public TinyUrlLinkedListDataService()
+    {
+        _tinyUrlDataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UrlHashTableFileName);
+        _urlHashTable = new UrlHashTable(_tinyUrlDataFilePath);
+    }
 
     public void Delete(string shortUrl)
     {
@@ -41,8 +41,8 @@ public class TinyUrlLinkedListDataService : ITinyUrlDataProvider
 
     public void SaveChanges()
     {
-		var jsonString = JsonSerializer.Serialize(_urlHashTable);
-		File.WriteAllText(_tinyUrlDataFilePath, jsonString);
+        var jsonString = JsonSerializer.Serialize(_urlHashTable);
+        File.WriteAllText(_tinyUrlDataFilePath, jsonString);
     }
 
 

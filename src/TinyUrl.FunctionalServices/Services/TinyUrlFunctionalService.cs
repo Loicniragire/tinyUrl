@@ -27,7 +27,7 @@ public class TinyUrlFunctionalService : ITinyUrlProvider
             var existingShortUrls = _tinyUrlDataProvider.GetShortUrl(longUrl);
             if (existingShortUrls.Any())
             {
-				// TODO: 
+                // TODO: 
                 return existingShortUrls.First();
             }
 
@@ -42,7 +42,7 @@ public class TinyUrlFunctionalService : ITinyUrlProvider
         }
 
         _tinyUrlDataProvider.SaveUrlMapping(longUrl, shortUrl);
-		_tinyUrlDataProvider.SaveChanges();
+        _tinyUrlDataProvider.SaveChanges();
         return shortUrl;
     }
 
@@ -52,7 +52,7 @@ public class TinyUrlFunctionalService : ITinyUrlProvider
         var shortUrl = _tinyUrlDataProvider.GetShortUrl(longUrl);
         _logger.LogInformation("Short url found: {shortUrl}", shortUrl);
         _tinyUrlDataProvider.Delete(longUrl);
-		_tinyUrlDataProvider.SaveChanges();
+        _tinyUrlDataProvider.SaveChanges();
         _logger.LogInformation("Short url deleted: {shortUrl}", shortUrl);
     }
 }

@@ -7,34 +7,45 @@ namespace TinyUrl.DataServices.Models;
 [Serializable]
 public class UrlHashTable
 {
+    private const int DEFAULT_SIZE = 1000;
     private int _size;
     private UrlNode[] _buckets;
 
-	public UrlNode[] Buckets {get => _buckets; set => _buckets = value;}
-    public int Size {get => _size; set => _size = value;}
+    public UrlNode[] Buckets { get => _buckets; set => _buckets = value; }
+    public int Size { get => _size; set => _size = value; }
 
-    public UrlHashTable(){}
-	public UrlHashTable(string jsonFilename)
-	{
-		if (File.Exists(jsonFilename))
-		{
-			var json = File.ReadAllText(jsonFilename);
-			var data = JsonSerializer.Deserialize<UrlHashTable>(json);
-			_size = data.Buckets.Length;
-			_buckets = data.Buckets;
-		}
-		else
-		{
-			_size = 1000;
-			_buckets = new UrlNode[_size];
-		}
-	}
+    public UrlHashTable()
+    {
 
-	public UrlHashTable(int size)
-	{
-		_size = size;
-		_buckets = new UrlNode[size];
-	}
+    }
+
+    public UrlHashTable(string jsonFilename)
+    {
+        if (File.Exists(jsonFilename))
+        {
+            var json = File.ReadAllText(jsonFilename);
+            var data = JsonSerializer.Deserialize<UrlHashTable>(json);
+            if (data == null)
+            {
+                _size = DEFAULT_SIZE;
+                _buckets = new UrlNode[_size];
+                return;
+            }
+            _size = data.Buckets.Length;
+            _buckets = data.Buckets;
+        }
+        else
+        {
+            _size = DEFAULT_SIZE;
+            _buckets = new UrlNode[_size];
+        }
+    }
+
+    public UrlHashTable(int size)
+    {
+        _size = size;
+        _buckets = new UrlNode[size];
+    }
 
     private int GetHash(string longUrl)
     {
@@ -66,11 +77,11 @@ public class UrlHashTable
         }
     }
 
-	/// <summary>
-	/// Searches for all short URLs associated with a given long URL.
-	/// </summary>
-	/// <param name="longUrl">The long URL to search for.</param>
-	/// <returns>A list of short URLs associated with the long URL.</returns>
+    /// <summary>
+    /// Searches for all short URLs associated with a given long URL.
+    /// </summary>
+    /// <param name="longUrl">The long URL to search for.</param>
+    /// <returns>A list of short URLs associated with the long URL.</returns>
     public List<string> SearchByLongUrl(string longUrl)
     {
         var shortUrls = new List<string>();
@@ -91,11 +102,11 @@ public class UrlHashTable
         return shortUrls;
     }
 
-	/// <summary>
-	/// Searches for the long URL associated with a given short URL.
-	/// </summary>
-	/// <param name="tinyUrl">The short URL to search for.</param>
-	/// <returns>The long URL associated with the short URL.</returns>
+    /// <summary>
+    /// Searches for the long URL associated with a given short URL.
+    /// </summary>
+    /// <param name="tinyUrl">The short URL to search for.</param>
+    /// <returns>The long URL associated with the short URL.</returns>
     public string SearchByShortUrl(string tinyUrl)
     {
         foreach (UrlNode node in _buckets)
@@ -115,11 +126,11 @@ public class UrlHashTable
         return null;
     }
 
-	/// <summary>
-	/// Gets the access count for a given short URL.
-	/// </summary>
-	/// <param name="tinyUrl">The short URL to search for.</param>
-	/// <returns>The access count for the short URL.</returns>
+    /// <summary>
+    /// Gets the access count for a given short URL.
+    /// </summary>
+    /// <param name="tinyUrl">The short URL to search for.</param>
+    /// <returns>The access count for the short URL.</returns>
     public int GetAccessCount(string tinyUrl)
     {
         foreach (UrlNode node in _buckets)

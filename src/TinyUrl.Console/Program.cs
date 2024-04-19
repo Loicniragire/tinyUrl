@@ -5,10 +5,12 @@
 /// 2. Retrieving the long URL associated with a short URL
 /// 3. Retrieving the number of times a short URL has been clicked
 /// 4. Entering a custom short URL 
-/// 5. Exporting the URL mappings to a file
+///
+/// Once the application is run, it reads a JSON file containing a list of ProcessRequest objects - InputCommands.json
+/// Responses are currently stored in the urhHashTable.json file.
+/// Currently supported actions inside the InputCommands.json are "Create". 
+/// Future work will include "Delete", "Retrieve", and "Stats".
 /// </summary>
-
-var tinyUrlDataImporter = new TinyUrlDataImporter();
 
 var tinyUrlDataProvider = new TinyUrlLinkedListDataService();
 var hashProvider = new HashingFunctionalService();

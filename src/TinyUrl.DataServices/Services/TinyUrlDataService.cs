@@ -19,7 +19,7 @@ public class TinyUrlDataService : ITinyUrlDataProvider
     {
         _tinyUrlDataImporter = tinyUrlDataImporter;
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, tinyUrlDataFilePath);
-		_tinyUrlDataFilePath = filePath;
+        _tinyUrlDataFilePath = filePath;
         _tinyUrlDataImporter.Import(filePath);
         _urlMapping = _tinyUrlDataImporter.TinyUrlMap;
     }
@@ -29,10 +29,10 @@ public class TinyUrlDataService : ITinyUrlDataProvider
         return _urlMapping.FirstOrDefault(x => x.Value == shortUrl).Key;
     }
 
-	public List<string> GetShortUrl(string longUrl)
-	{
-		throw new NotImplementedException();
-	}
+    public List<string> GetShortUrl(string longUrl)
+    {
+        throw new NotImplementedException();
+    }
 
     public void SaveUrlMapping(string longUrl, string shortUrl)
     {
